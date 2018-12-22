@@ -22,6 +22,7 @@ import random
 import pickle
 import cv2
 import os
+from keras.utils.vis_utils import plot_model
 
 # construct the argument parse and parse the arguments
 ap = argparse.ArgumentParser()
@@ -91,6 +92,7 @@ aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.1,
 print("[INFO] compiling model...")
 model = LeNet.build(width=IMAGE_DIMS[1], height=IMAGE_DIMS[0], depth=IMAGE_DIMS[2], classes=len(lb.classes_))
 #model = SmallerVGGNet.build(width=IMAGE_DIMS[1], height=IMAGE_DIMS[0], depth=IMAGE_DIMS[2], classes=len(lb.classes_))
+plot_model(model, to_file='size_perception_model.png', show_shapes=True, show_layer_names=True)
 opt = Adam(lr=INIT_LR, decay=INIT_LR / EPOCHS)
 model.compile(loss="sparse_categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
 
